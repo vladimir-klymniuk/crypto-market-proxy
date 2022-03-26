@@ -9,3 +9,7 @@ export function logInfo (...args) {
 export function logError (...args) {
     console.error.apply(console, wrap("ERR", args));
 }
+
+export function logDebug(...args) {
+    console.info.apply(console, wrap("DEBUG", args));
+}

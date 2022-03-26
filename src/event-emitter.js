@@ -1,13 +1,17 @@
-import EventEmitter from "events";
+import eventEmitter from "events";
 import fs from "fs";
+import path from "path";
 
-// await
-fs.reddirSync(__dirname + '/listeners').forEach(function (file) {
-    require(__dirname + '/listeners/' + file);
+export const EventEmitter = new eventEmitter();
+
+
+import { MESSAGE_NEW_RATE } from './events/types.js';
+import { logError, logDebug } from "./logger.js";
+
+EventEmitter.on(MESSAGE_NEW_RATE, async (event) => {
+    try {
+            
+    } catch (err) {
+        logError(err)
+    }
 });
-
-//register event listeners
-
-export default EventEmitter();
-// const EventEmitter = require('events');
-// let fs = require('file-system');

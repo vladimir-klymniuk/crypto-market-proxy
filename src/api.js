@@ -2,11 +2,8 @@ import express from "express";
 import config from "../config/config.js";
 import { logError, logInfo } from "./logger.js";
 import cors from "cors";
-import exchanges from "./routes/exchanges";
-import meta from "./routes/meta";
-
-// Implement cache asside pattern using filesystem
-//  The /var/tmp directory is a place for temporary files which should be preserved between system reboots.
+import exchanges from "./routes/exchanges.js";
+import meta from "./routes/meta.js";
 
 let app = express();
 

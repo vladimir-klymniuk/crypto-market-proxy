@@ -6,8 +6,11 @@ const router = Router();
 
 // Get specific currency rate
 // GET /v1/exchangerate/{asset_id_base}/{asset_id_quote}?time={time}
+router.get("/history/:asset_id_base/:asset_id_quote", asyncErrorHandler(async function (req, res) {
 
-// router.get("/:asset_id_base/:asset_id_quote", asyncErrorHandler(async function (req, res) {
+}));
+
+router.get("/:asset_id_base/:asset_id_quote", asyncErrorHandler(async function (req, res) {
 //     const time = req.query.time;
 //     let response = new ExchangeRateDTO();
 
@@ -19,6 +22,6 @@ const router = Router();
 //     // } else {
 //     //     return res.status(404).send({});
 //     // }
-// }));
+}));
 
 export default router;

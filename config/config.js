@@ -1,6 +1,4 @@
 const env = process.env;
-console.log(process.env);
-process.exit(1)
 
 export default {
     env: env,

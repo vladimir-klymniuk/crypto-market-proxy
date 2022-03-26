@@ -1,11 +1,37 @@
 {
+  "name": "magnise",
+  "version": "1.0.0",
+  "description": "Proxy service for communicated with external exchange api and store historycal updates.",
+  "main": "api",
+  "scripts": {
+    "serve": "node src/api.js",
+    "dev": "DEBUG=app,express* nodemon src/api.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vladimir-klymniuk/crypto-market-proxy.git"
+  },
+  "author": "Vladimir Klymniuk",
   "type": "module",
+  "license": "MIT",
   "dependencies": {
+    "axios": "^0.26.1",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
+    "esm": "^3.2.25",
     "events": "^3.3.0",
     "express": "^4.17.3",
     "express-async-handler": "^1.2.0",
     "file-system": "^2.2.2",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7",
+    "serve": "^13.0.2",
+    "util": "^0.12.4"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }
