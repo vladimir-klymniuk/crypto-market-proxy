@@ -1,10 +1,9 @@
 export default class ExchangeRateResponseDTO {
-    
     /**
-     * @param {String}           assetIdBase 
-     * @param {String}           assetIdQuote 
-     * @param {Number}           rate 
-     * @param { SrcSideBaseDTO[] } srcSideBase 
+     * @param {String}              assetIdBase    BTC
+     * @param {String}              assetIdQuote   USD
+     * @param {Number}              rate           44453.580628721786
+     * @param { SrcSideBaseDTO[] }  srcSideBase    []
      */
     constructor(assetIdBase, assetIdQuote, rate, srcSideBase = []) {
         this._assetIdBase   = assetIdBase

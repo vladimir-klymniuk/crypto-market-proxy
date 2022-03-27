@@ -1,0 +1,205 @@
+openapi: 3.0.0
+info:
+  descriptions: |
+    Тестовое задание.
+version: "1.0.1"
+title: Swagger Crypto Market Proxy API
+termsOfService: "https://swagger.io/terms/"
+conacts:
+    email: vladimir.klymniuk@gmail.com
+license:
+    name: MIT
+servers:
+    - description:
+      url: http://localhost:80/
+
+tags:
+    - name: meta
+        description: Metadata from remote site. This data used by other api routes.
+        externalDocs:
+          description:
+          urls:
+
+    - name: historical
+      description: Internal historical response from remote server.
+      externalDocs:
+          description:
+          urls:
+
+    - name: exchange
+      description: Exctrate actual rates.
+      externalDocs:
+          description: bla bla bla
+          urls: https://docs.coinapi.io/#http-requests
+
+paths:
+    '/exchanges/'
+        get:
+          tags:
+            - meta
+          summary: some text about
+          description: some long text about
+          responses:
+            '200':
+              description: response okey
+              headers:
+                X-Rate-Limit:
+                  descriptions: calls per hour allowed by the 
+                  schema:
+                    type: integer
+                    format: int32
+                X-Expires-After:
+                  description: date in UTC when token expires
+                  scheme:
+                    type: string
+                    format: date-time
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Meta'
+              application/xml:
+              schema:
+                $ref: '#/components/schemas/Meta'
+          '400'
+              description: 
+          '404':
+              description: External API updated
+
+    '/exchangerate/:asset_id_base/:asset_id_quote'
+        get:
+          tags:
+            - exchange
+          summary: some text about
+          description: some long text about
+
+externalDocs:
+  description: Text
+  url: ''
+
+components:
+  schemas:
+      ExchangeDTO:
+        type: object
+        properties:
+
+          exchange_id:
+            type: string
+            description: OKCOIN_CNY
+
+          website:
+            type: string
+            description: "https://www.okcoin.cn/"
+
+          name:
+            type: string
+            description: "OKCoin CNY"
+
+          data_start:
+            type: string
+            format: date 
+            description: "2013-06-12"
+
+          data_end:
+            type: string
+            format: date 
+            description: "2018-03-09"
+
+          data_quote_start:
+            type: string
+            format: date-time
+            description: "2015-02-15T12:53:50.3430000Z"
+
+          data_quote_start:
+            type: string
+            format: date-time
+            description: "2015-02-15T12:53:50.3430000Z"
+
+          data_quote_end:
+            type: string
+            format: date-time
+            description: "2018-03-09T23:34:52.5800000Z"
+
+          data_orderbook_start:
+            type: string
+            format: date-time
+            description: "2015-02-15T12:53:50.3430000Z"
+
+          data_orderbook_end:
+            type: string
+            format: date-time
+            description: "2018-03-09T23:34:52.5800000Z"
+
+          data_trade_start:
+            type: string
+            format: date-time
+            description:  "2013-06-12T14:24:24.0000000Z"
+
+          data_trade_end:
+            type: string
+            format: date-time
+            description: "2017-11-01T16:30:39.7077259Z"
+ 
+          data_symbols_count: 
+            type: integer
+            format: int64
+            description: 2
+
+          volume_1hrs_usd: 
+            type: integer
+            format: int64
+            description: 0.0
+
+          volume_1day_usd: 
+            type: integer
+            format: int64
+            description: 0.0
+
+          volume_1mth_usd: 
+            type: integer
+            format: int64
+            description: 0.0
+
+      SrcSideBaseDTO:
+        type: object
+        properties:
+            time:
+                type: string
+                format: date-time
+                description: "2022-03-26T23:20:08.5000000Z"
+            asset:
+                type: integer
+                format: int64
+                description: "XTZ"
+            rate:
+                type: integer
+                format: int32
+                description: 4456.019061890416 
+            volume:
+                type: integer
+                format: int32
+                description: 44456.019061890416
+
+        ExchangeRateResponseDTO:
+          type: object
+          properties: 
+            asset_id_base:
+                type: string
+                description: "BTC"
+
+            asset_id_quote:
+                type: string
+                description: "USD"
+
+            rate:
+                type: integer
+                description: 44453.580628721786
+
+            src_side_base:
+                type: array
+                xml:
+                  name: src_side_base
+                  wrapped: true
+                items:
+                  $ref: '#/components/schemas/SrcSideBaseDTO'
+            list:
+              $ref: '#/components/schemas/SrcSideBaseDTO'

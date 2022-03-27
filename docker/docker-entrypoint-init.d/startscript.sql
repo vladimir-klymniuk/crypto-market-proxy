@@ -5,6 +5,10 @@ COLLATE utf8_general_ci;
 
 USE `PROXY_API`;
 
+-- https://www.mysqltutorial.org/mysql-primary-key/
+
+
+
 -- DROP TABLE IF EXISTS
 
 -- class ExchangeRateResponseDTO
