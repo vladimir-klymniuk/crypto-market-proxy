@@ -28,8 +28,7 @@
     "https": "^1.0.0",
     "nodemon": "^2.0.15",
     "path": "^0.12.7",
-    "serve": "^13.0.2",
-    "util": "^0.12.4"
+    "serve": "^13.0.2"
   },
   "devDependencies": {
     "jest": "^27.5.1"

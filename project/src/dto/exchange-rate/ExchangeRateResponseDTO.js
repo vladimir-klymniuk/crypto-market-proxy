@@ -1,4 +1,4 @@
-export class ExchangeRateResponseDTO {
+export default class ExchangeRateResponseDTO {
     
     /**
      * @param {String}           assetIdBase 

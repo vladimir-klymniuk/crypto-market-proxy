@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+    api:
+        build:
+            context: ../project
+            dockerfile: docker/Dockerfile
+            args:
+                # apihome: ${API_HOME_DIR}
+                debugport: ${API_DEBUG_PORT}
+        env_file: env.conf
+        ports:
+            - "${API_PORT}:8080"
+            # - "${API_DEBUG_PORT}:9229"
+        environment:
+            - NODE_ENV=${API_NODE_ENV}
+            - TZ=${WORKSPACE_TIMEZONE}
+        volumes:
+            - "${API_HOST_DIR}:${API_HOME_DIR}"
+            - "${API_HOME_DIR}/node_modules"
+        networks:
+            - backend
+        links:
+            - mysql
+        depends_on:
+            - mysql
+
+    mysql:
+        image: "mysql:${MYSQL_VERSION}"
+        # environments:
+        #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        #     - MYSQL_DATABASE=${MYSQL_DATABASE}
+        #     - MYSQL_USER=${MYSQL_USER}
+        #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        #     - TZ=${WORKSPACE_TIMEZONE}
+        volumes:
+            - mysql-volume:/var/lib/mysql
+            # - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+        ports:
+            - "${MYSQL_PORT}:3306"
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: ${NETWORKS_DRIVER}
+
+    volumes:
+        mysql-volume:
