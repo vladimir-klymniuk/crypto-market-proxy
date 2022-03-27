@@ -54,105 +54,128 @@ export default class ExchangeDTO {
     /**
      * @returns {String}    "OKCOIN_CNY"
      */
-    getExchangeId() {
+    get exchangeId() {
         return this._exchange_id;
     }
 
     /**
      * @returns {String}    "https://www.okcoin.cn/"
      */
-    getWebsite() {
+    get website() {
         return this._website;
     }
 
     /**
      * @returns {String}    "OKCoin CNY"
      */
-    getName() {
+    get name() {
         return this._name;
     }
 
     /**
      * @returns {String}    "2013-06-12"
      */
-    getDataStart() {
+    get dataStart() {
         return this._data_start; 
     }
 
     /**
      * @returns {String}    "2018-03-09"
      */
-    getDataEnd() {
+    get dataEnd() {
         return this._data_end;
     }
 
     /**
      * @returns {String}    "2015-02-15T12:53:50.3430000Z"
      */
-    getDataQuoteStart() {
+    get dataQuoteStart() {
         return this._data_quote_start;
     }
 
     /**
      * @returns {String}    "2018-03-09T23:34:52.5800000Z"
      */
-    getDataQuoteEnd() {
+    get dataQuoteEnd() {
         return this._data_quote_end;
     }
 
     /**
      * @returns {String}    "2015-02-15T12:53:50.3430000Z"
      */
-    getDataOrderbookStart() {
+    get dataOrderbookStart() {
         return this._data_orderbook_start;
     }
 
     /**
      * @returns {String}    "2018-03-09T23:34:52.5800000Z"
      */
-    getDataOrderbookEnd() {
+    get dataOrderbookEnd() {
         return this._data_orderbook_end;
     }
 
     /**
      * @returns {String}    "2013-06-12T14:24:24.0000000Z"
      */
-    getDataTradeStart() {
+    get dataTradeStart() {
         return this._data_trade_start;
     }
 
     /**
      * @returns {String}    "2017-11-01T16:30:39.7077259Z"
      */
-    getDataTradeEnd() {
+    get dataTradeEnd() {
         return this._data_trade_end;
     }
 
     /**
      * @returns {Number}    2
      */
-    getDataSymbolsCount() {
+    get dataSymbolsCount() {
         return this._data_symbols_count;
     }
 
     /**
      * @returns {Number}    0.0
      */
-    getVolume1hrsUsd() {
+    get volume1hrsUsd() {
         return this._volume_1hrs_usd;
     }
 
     /**
      * @returns {Number}    0.0
      */
-    getVolume1dayUsd() {
+    get volume1dayUsd() {
         return this._volume_1day_usd;
     }
 
     /**
      * @returns {Number}    0.0
      */
-    getVolume1mthUsd() {
+    get volume1mthUsd() {
         return this._volume_1mth_usd;
+    }
+
+    /**
+     * @returns {JSON}
+     */
+    get response() {
+        return {
+            exchange_id: this.exchangeId,
+            website: this.website,
+            name: this.name,
+            data_start: this.dataStart,
+            data_end: this.dataEnd,
+            data_quote_start: this.dataQuoteStart,
+            data_quote_end: this.dataQuoteEnd,
+            data_orderbook_start: this.dataOrderbookStart,
+            data_orderbook_end: this.dataOrderbookEnd,
+            data_trade_start: this.dataTradeStart,
+            data_trade_end: this.dataTradeEnd,
+            data_symbols_count: this.dataSymbolsCount,
+            volume_1hrs_usd: this.volume1hrsUsd,
+            volume_1day_usd: this.volume1dayUsd,
+            volume_1mth_usd: this.volume1mthUsd,
+        };
     }
 }

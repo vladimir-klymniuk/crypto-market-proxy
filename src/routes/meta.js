@@ -4,20 +4,19 @@ const logger = import("../logger.js");
 import { extractCurrencies } from "../service/coinapiproxy.js"
 
 const router = Router();
-// GET /v1/exchanges
+
 // TODO Read result from saved cache file if exists.
-
 router.get("/", asyncErrorHandler(async function (req, res) {
-    // let res;
-
     try {
-        let re = await extractCurrencies()
-        console.log(11);
+        let result = await extractCurrencies();
+        if (null !== result) {
+            res.status(200).send(result.response);
+        } else {
+            return res.status(404).send({});
+        }
     } catch (err) {
-        console.log(err);
+        return res.status(500).send({ message: err.message});
     }
-    // let dto = new ResponseDTO();
-    // let item = new ExchangeRateDTO();
 }));
 
 export default router;

@@ -4,7 +4,12 @@ import config from '../../config/config.js';
 import RateEvent from "../events/types/rate-event.js";
 import { EventEmitter } from "../event-emitter.js";
 import ExchangeDTO from "../dto/meta/ExchangeDTO.js";
+import ExchangeRateResponseDTO from "../dto/exchange-rate/ExchangeRateResponseDTO";
+import SrcSideBaseDTO from "../dto/exchange-rate/SrcSideBaseDTO";
+import RateEvent from "../events/types/rate-event";
+import { MESSAGE_NEW_RATE } from '../events/types';
 
+// todo: read from config
 const instance = axios.create({
     baseURL: 'https://rest.coinapi.io',
     timeout: 10000,
@@ -12,7 +17,7 @@ const instance = axios.create({
 });
 
 /**
- * @return ResponseDTO[]
+ * @return { ResponseDTO[] }
  */
 export async function extractCurrencies() {
     let path = '/v1/exchanges';
@@ -37,98 +42,55 @@ export async function extractCurrencies() {
     ));
 }
 
-// export
-// GET /v1/exchangerate/{asset_id_base}/{asset_id_quote}?time={time}
-// let response = new ExchangeRateDTO();
-
 /**
- * @return ExchangeRateDTO
+ * @return { ExchangeRateResponseDTO }
  */
 export async function extractExchangeRate(assetIdBase, assetIdQuote, time = null) {
     const path = `/v1/exchangerate/${assetIdBase}/${assetIdQuote}`;
-    const params = {}
+    const requestParameters = {}
 
     if (null !== time) {
-        params = { "time" : time };
+        requestParameters = { "time" : time };
     }
 
-    let result = await extract(path, params);
+    let result = await extract(path, requestParameters);
+    let data = result.data;
+    
+    const dto =  new ExchangeRateResponseDTO(
+        data.asset_id_base,
+        data.asset_id_quote,
+        data.rate,
+        data.src_side_base.map( item => new SrcSideBaseDTO(item.time, item.asset, item.volume))    
+    );
 
-    console.log(1);
-    // GET /v1/exchanges
-    // let dto = new ResponseDTO();
-    // let item = new ExchangeRateDTO();
+    EventEmitter.emit(MESSAGE_NEW_RATE, new RateEvent(new Date(), dto));
+
+    return dto;
 }
 
+/**
+ * 
+ * @param {String} path 
+ * @param {JSON}   parameters 
+ * 
+ * @returns 
+ */
 async function extract(path, parameters = {}) {
     try {
-        console.log(0);
-
-     return  await instance.get(path, { params: parameters })
-          .then(function (response) {
+        return await instance
+            .get(path, { params: parameters })
+            .then(function (response) {
                 return response;
-          })
-          .catch(function (error) {
-            console.log(2);
-          });
-        //   .then(function () {
-        //     console.log(3);
-        //   });  
-        
-        console.log(4);
-
-        console.log(5);
-          
-        // axios.get(path, {});            
-        // axios.get('/user/12345', {
-        //     cancelToken: source.token
-        // }).catch(function (thrown) {
-        //   if (axios.isCancel(thrown)) {
-        //      console.log('Request canceled', thrown.message);
-        //   } else {
-        //    // handle error
-        //   }
-        // });
-
-        // const response = await axios.get('/user?ID=12345');
-        // console.log(11);
-        // console.log(11);
-        // const req = await https.get(options, (res) => {
-        //     console.log('statusCode:', res.statusCode);
-        //     console.log('headers:', res.headers);
-
-        //     res.on('data', (d) => {
-        //         // process.stdout.write(d);
-        //     });
-        // });
-
-        // req.on('error', (e) => {
-        //     console.error(e);
-        // });
-        // req.end();
-
-        // console.log(1);
-
-        // return req;
-        // var request = https.request(options, function (response) {
-        //     var chunks = [];
-        //     response.on("data", function (chunk) {
-        //       chunks.push(chunk);
-        //     });
-        //   });
-
-        //   req.on('error', (e) => {
-        //     console.error(e);
-        //   });
-
-        //   request.end();
-
-        return res;
+            })
+            .catch(function (error) {
+                // logger
+                console.log(2);
+            });
     } catch (err) {
-
+            // logger
         console.log(22);
     }
 
- 
+    // err obj
     return 0;
 };
